@@ -47,7 +47,9 @@ class UserBridge(models.Model):
         return data, success
 
     @classmethod
-    def create(cls, user, package_id=settings.BLOXBY_BUILDER['default_package_id']):
+    def create(cls, user, package_id=None):
+        if not package_id:
+            package_id = settings.BLOXBY_BUILDER['default_package_id']
         """
         Package_id is the bloxby package id not the internal one
         Simply call UserBridge.create(package_id, user);
@@ -60,14 +62,11 @@ class UserBridge(models.Model):
             obj.save()
             new = obj
             data, is_success = bloxby.Users.update(obj.bloxby_id, status='Active')
-            if not is_success:
-                cls.create_remote(user, package_id, new)
+            if not is_success and 'does not belong to a valid user' in str(data):
+                cls.create_remote(user, package_id, obj)
         else:
             # Check if email already exists there
-            if not existings.exists():
-                new = cls.objects.create(user=user, override=True)
-            else:
-                new = existings.first()
+            new = cls.objects.create(user=user, override=True)
             data, success = cls.create_remote(user, package_id, new)
             if not success:
                 if 'email already used' in str(data):
