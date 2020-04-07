@@ -1,9 +1,10 @@
 class Generic:
-    def __init__(self, base_url, username, password, package_prefix, public_key):
+    def __init__(self, base_url, username, password, package_prefix, public_key, account_email_prefix):
         self.base_url = base_url
         self.username = username
         self.password = password
         self.package_prefix = package_prefix
+        self.account_email_prefix = account_email_prefix
         self.public_key = public_key
 
     @staticmethod

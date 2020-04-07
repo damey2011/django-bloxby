@@ -11,13 +11,14 @@ BASE_URL = settings.BLOXBY_BUILDER['url']
 USERNAME = settings.BLOXBY_BUILDER['username']
 PASSWORD = settings.BLOXBY_BUILDER['password']
 PACKAGE_PREFIX = settings.BLOXBY_BUILDER['package_prefix']
+ACCOUNT_EMAIL_PREFIX = settings.BLOXBY_BUILDER['account_email_prefix']
 PUBLIC_KEY = settings.BLOXBY_BUILDER['public_key']
 AUTOLOGIN_HASH = settings.BLOXBY_BUILDER['autologin_hash']
 
 
 class Bloxby:
-    Users = User(BASE_URL, USERNAME, PASSWORD, PACKAGE_PREFIX, PUBLIC_KEY)
-    Packages = Package(BASE_URL, USERNAME, PASSWORD, PACKAGE_PREFIX, PUBLIC_KEY)
+    Users = User(BASE_URL, USERNAME, PASSWORD, PACKAGE_PREFIX, PUBLIC_KEY,ACCOUNT_EMAIL_PREFIX)
+    Packages = Package(BASE_URL, USERNAME, PASSWORD, PACKAGE_PREFIX, PUBLIC_KEY, ACCOUNT_EMAIL_PREFIX)
 
     @staticmethod
     def generate_login_hash():

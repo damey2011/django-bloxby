@@ -43,9 +43,18 @@ class UserBridge(models.Model):
         else:
             # Check if email already exists there
             new = cls.objects.create(user=user)
-            data, _ = bloxby.Users.create(
+            data, success = bloxby.Users.create(
                 user.first_name, user.last_name, user.email, bloxby.generate_random_password(), package_id
             )
-            new.bloxby_id = data['data']['user']['id']
+            if success:
+                new.bloxby_id = data['data']['user']['id']
+                new.autologin_token = data['data']['user']['auto_login_token']
+            else:
+                if 'email already used' in str(data):
+                    # Hack to find the user again. Not efficient but we have to work with what we have
+                    for bu in bloxby.Users.all():
+                        if user.email in bu['email']:
+                            new.bloxby_id = bu['id']
+                            new.autologin_token = bu['auto_login_token']
             new.save()
         return new

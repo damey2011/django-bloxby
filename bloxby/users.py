@@ -10,7 +10,7 @@ class User(Generic):
         data = {
             'first_name': first_name,
             'last_name': last_name,
-            'email': f'{self.package_prefix}{email}',
+            'email': f'{self.account_email_prefix}{email}',
             'password': password,
             'type': type_,
             'package_id': package_id
@@ -39,3 +39,11 @@ class User(Generic):
         data = response.json()
         is_success = response.status_code == 200
         return data[0] if is_success else data, is_success
+
+    def all(self):
+        response = requests.get(
+            f'{self.base_url}{self.path}/', headers=self.get_headers(), auth=self.get_auth()
+        )
+        data = response.json()
+        is_success = response.status_code == 200
+        return data if is_success else data, is_success

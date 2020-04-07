@@ -56,3 +56,11 @@ class Package(Generic):
         data = response.json()
         is_success = response.status_code == 200
         return data[0] if is_success else data, is_success
+
+    def all(self):
+        response = requests.get(
+            f'{self.base_url}{self.path}/', headers=self.get_headers(), auth=self.get_auth()
+        )
+        data = response.json()
+        is_success = response.status_code == 200
+        return data if is_success else data, is_success
