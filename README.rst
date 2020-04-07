@@ -35,18 +35,6 @@ Add it to your `INSTALLED_APPS`:
         ...
     )
 
-Add Django Bloxby's URL patterns:
-
-.. code-block:: python
-
-    from bloxby import urls as bloxby_urls
-
-
-    urlpatterns = [
-        ...
-        url(r'^', include(bloxby_urls)),
-        ...
-    ]
 
 Features
 --------
