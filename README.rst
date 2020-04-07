@@ -43,7 +43,8 @@ The following settings are available to you (in settings.py):
         'package_prefix': 'LF-',
         'account_email_prefix': 'LF',
         'public_key': 'Yourpublickeyasstatedinthebloxbyapplicationsettings',
-        'autologin_hash': 'Yourautologinhash'
+        'autologin_hash': 'Yourautologinhash',
+        'default_package_id': 1
     }
 
 
@@ -55,7 +56,7 @@ The following settings are available to you (in settings.py):
 - *account_prefix*: Same explanation goes here, in case you have some users shared across your applications.
 - *public_key*: API key you generated and saved in the admin settings on your bloxby dashboard.
 - *autologin_hash*: The auto login hash which you as well got from the dashboard.
-
+- *default_package_id*: Default package to add for new users being created if none is provided.
 
 Usage
 -----
@@ -81,6 +82,18 @@ Once the settings are configured you could run requests this way:
     # .....
     # Could also do .update, .retrieve, .delete with this.
 
+
+
+Template
+--------
+
+.. code-block:: html
+
+    <!-- You could autologin user in html by getting the autologin URL for the current user -->
+
+    {% load bloxby %}
+
+    <h1>Click <a href="{% user_builder_dashboard %}">here</a> to login to your builder dashboard.
 
 Features
 --------

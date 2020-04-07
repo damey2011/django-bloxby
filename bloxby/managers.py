@@ -1,9 +1,11 @@
 from django.db.models import Manager
 
+from .querysets import UserBridgeQuerySet
+
 
 class UserBridgeManager(Manager):
-    def all(self):
-        return super(UserBridgeManager, self).all().filter(active=True)
+    def get_queryset(self):
+        return UserBridgeQuerySet(self.model, using=self._db).filter(active=True)
 
-    def create(self, **kwargs):
-        raise Exception('Use UserBridge.create(bloxby_package_id, django_user) instead.')
+    def everything(self):
+        return super(UserBridgeManager, self).get_queryset()
