@@ -38,6 +38,11 @@ class Package(Generic):
         return response.json(), response.status_code in [200, 201]
 
     def update(self, package_id, **kwargs):
+        for key, value in kwargs.items():
+            if isinstance(value, bool):
+                kwargs[key] = self.bool_cast(value)
+            if isinstance(value, list):
+                kwargs[key] = json.dumps(value)
         response = requests.put(
             f'{self.base_url}{self.path}{package_id}/', data=kwargs, headers=self.get_headers(), auth=self.get_auth()
         )
