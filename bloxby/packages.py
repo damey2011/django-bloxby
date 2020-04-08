@@ -43,6 +43,8 @@ class Package(Generic):
                 kwargs[key] = self.bool_cast(value)
             if isinstance(value, list):
                 kwargs[key] = json.dumps(value)
+            if key == 'name' and self.package_prefix not in value:
+                kwargs[key] = f'{self.package_prefix}{value}'
         response = requests.put(
             f'{self.base_url}{self.path}{package_id}/', data=kwargs, headers=self.get_headers(), auth=self.get_auth()
         )
