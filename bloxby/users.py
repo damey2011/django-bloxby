@@ -7,6 +7,10 @@ class User(Generic):
     path = '/api/users/'
 
     def create(self, first_name, last_name, email, password, package_id=None, type_='User'):
+        if not first_name:
+            first_name = 'First'
+        if not last_name:
+            last_name = 'Last'
         data = {
             'first_name': first_name,
             'last_name': last_name,
@@ -30,7 +34,7 @@ class User(Generic):
         response = requests.delete(
             f'{self.base_url}{self.path}{user_id}/', headers=self.get_headers(), auth=self.get_auth()
         )
-        return response.status_code == 204
+        return response.status_code == 200
 
     def retrieve(self, user_id):
         response = requests.get(

@@ -61,8 +61,14 @@ class UserBridge(models.Model):
             obj.active = True
             obj.save()
             new = obj
-            data, is_success = bloxby.Users.update(obj.bloxby_id, status='Active')
-            if not is_success and 'does not belong to a valid user' in str(data):
+            exists_remote = True
+            if obj.bloxby_id:
+                data, is_success = bloxby.Users.update(obj.bloxby_id, status='Active')
+                if 'does not belong to a valid user' in str(data):
+                    exists_remote = False
+            else:
+                exists_remote = False
+            if not exists_remote:
                 cls.create_remote(user, package_id, obj)
         else:
             # Check if email already exists there

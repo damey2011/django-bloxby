@@ -54,7 +54,7 @@ class Package(Generic):
         response = requests.delete(
             f'{self.base_url}{self.path}{package_id}/', headers=self.get_headers(), auth=self.get_auth()
         )
-        return response.status_code == 204
+        return response.status_code == 200
 
     def retrieve(self, package_id):
         response = requests.get(
