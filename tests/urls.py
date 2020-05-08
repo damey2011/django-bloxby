@@ -1,10 +1,12 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals, absolute_import
 
-from django.conf.urls import url, include
+from django.conf import settings
+from django.conf.urls.static import static
 from django.contrib import admin
+from django.urls import path, include
 
 urlpatterns = [
-    url(r'^admin/', admin.site.urls),
-    url(r'^', include('bloxby.urls', namespace='bloxby')),
-]
+    path('admin/', admin.site.urls),
+    path('bloxby/', include('djbloxby.bloxby.urls')),
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

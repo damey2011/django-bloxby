@@ -47,3 +47,5 @@ output/*/index.html
 docs/_build
 
 .github
+logs/
+db.sqlite3

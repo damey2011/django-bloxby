@@ -1,0 +1,11 @@
+{
+    "apps": [{
+        "name": "ftp_server",
+        "script": "run_daemon.py",
+        "instances": "1",
+        "wait_ready": true,
+        "autorestart": true,
+        "max_restarts": 10,
+        "interpreter" : "env/bin/python"
+    }]
+}
