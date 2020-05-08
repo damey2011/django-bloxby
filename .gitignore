@@ -48,4 +48,5 @@ docs/_build
 
 .github
 logs/
+env/
 db.sqlite3
