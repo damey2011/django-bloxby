@@ -17,7 +17,7 @@
       "autorestart": true,
       "max_restarts": 10,
       "interpreter": "env/bin/python",
-      "args": "runserver"
+      "args": "runserver 0.0.0.0:8000"
     }
   ]
 }
