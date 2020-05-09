@@ -164,14 +164,15 @@ This restarts the django server and the ftp server.
 Why the Django Server inside of the library
 ===========================================
 
-The Django server provides admin interface to manage external application.
-You just need to add a model object named :code:`Application` that takes in the auth URL of the external application,
-this where the FTP server performs authentication for users that want to publish pages.
+The Django server provides admin interface to manage external applications.
+You just need to add a model object named :code:`Application` that takes in the auth URL and file receiving URL of the 
+external application (these are automatically also provided by this library), this where the FTP server performs 
+authentication for users that want to publish pages.
 
 e.g. I have an external application at https://dev.linkfusions.com , and in this external application, I have
-:code:`django-bloxby` installed already with the URLs set. I can just add an Application model instance through the admin,
-name it 'dev-fusions', provide the auth url as installed in my external application (How to do this in the next section),
-provide the receiving url and that's all.
+:code:`django-bloxby` installed already with the URLs set. I can just add an Application model instance through the FTP server 
+instance admin, name it 'dev-fusions', provide the auth url as installed in my external application (How to do this in 
+the next section), provide the auth and receiving url and that's all.
 
 
 How to add the URLs to your external application
@@ -195,7 +196,7 @@ register in the :code:`Application` model with the FTP server).
 
 
 How to access the pages published to your external application
---------------------------------------------------------------
+==============================================================
 
 A couple of models are made available for this :code:`Template`, :code:`Page`,
 :code:`TemplateAsset`. The :code:`Template` is just a sugar-coated name for Website.
@@ -211,7 +212,7 @@ The other challenge now is distinguishing Templates which is covered in the next
 
 
 Distinguishing Templates
-------------------------
+========================
 
 Coming
 
