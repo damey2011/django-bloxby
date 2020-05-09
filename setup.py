@@ -23,10 +23,10 @@ def get_version(*file_paths):
 
 version = get_version("djbloxby", "__init__.py")
 
-
 if sys.argv[-1] == 'publish':
     try:
         import wheel
+
         print("Wheel version: ", wheel.__version__)
     except ImportError:
         print('Wheel library missing. Please run "pip install wheel"')
@@ -57,7 +57,20 @@ setup(
     ],
     include_package_data=True,
     install_requires=[
-        'Django>=2.2'
+        'Django>=2.2',
+        'asgiref==3.2.7',
+        'beautifulsoup4==4.9.0',
+        'bs4==0.0.1',
+        'certifi==2020.4.5.1',
+        'chardet==3.0.4',
+        'Django==3.0.6',
+        'idna==2.9',
+        'pyftpdlib==1.5.6',
+        'pytz==2020.1',
+        'requests==2.23.0',
+        'soupsieve==1.9.5',
+        'sqlparse==0.3.1',
+        'urllib3==1.25.9'
     ],
     license="MIT",
     zip_safe=False,
