@@ -30,7 +30,7 @@ Install Django Bloxby::
 
 Add it to your `INSTALLED_APPS`:
 
-It used to be :code:`bloxby` you add to :code:`INSTALLED_APPS` in versions :code:`0.0.19` downwards, but
+App name you add to INSTALLED_APPS used to be :code:`bloxby` you add to :code:`INSTALLED_APPS` in versions :code:`0.0.19` downwards, but
 it has changed in version :code:`0.0.20` since the ftp part has been integrated into the library.
 
 .. code-block:: python
