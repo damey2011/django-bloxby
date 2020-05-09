@@ -17,8 +17,8 @@ For your application to communicate with the bloxby builder instance which provi
 :code:`user management`, :code:`package management` and :code:`autologin`, it can do a direct interfacing with
 the builder application because the builder application provides APIs for that.
 
-.. image:: https://ibb.co/QfrrtMK
-    :target: https://ibb.co/QfrrtMK
+.. image:: https://i.ibb.co/SPRRGB3/Django-Bloxby.png
+    :target: https://i.ibb.co/SPRRGB3/Django-Bloxby.png
 
 
 Quickstart
