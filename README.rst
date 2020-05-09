@@ -95,6 +95,28 @@ Template
 
     <h1>Click <a href="{% user_builder_dashboard %}">here</a> to login to your builder dashboard.
 
+
+Setup FTP Server
+----------------
+
+**In Production Environment**
+
+This part assumes you have python, pip and virtualenv installed globally on your server.
+
+Make :code:`setup_ftp_server.sh` and :code:`start_ftp_server.sh` executable if they are not already
+executable. :code:`chmod u+x setup_ftp_server.sh` and :code:`chmod u+x start_ftp_server.sh`.
+
+Run:
+
+.. code-block:: bash
+
+    ./setup_ftp_server.sh
+
+
+This installs certain dependencies needed
+
+
+
 Features
 --------
 

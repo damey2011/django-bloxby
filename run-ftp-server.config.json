@@ -1,11 +1,23 @@
 {
-    "apps": [{
-        "name": "ftp_server",
-        "script": "run_daemon.py",
-        "instances": "1",
-        "wait_ready": true,
-        "autorestart": true,
-        "max_restarts": 10,
-        "interpreter" : "env/bin/python"
-    }]
+  "apps": [
+    {
+      "name": "ftp_server",
+      "script": "run_daemon.py",
+      "instances": "1",
+      "wait_ready": true,
+      "autorestart": true,
+      "max_restarts": 10,
+      "interpreter": "env/bin/python"
+    },
+    {
+      "name": "django_ftp_server",
+      "script": "manage.py",
+      "instances": "1",
+      "wait_ready": true,
+      "autorestart": true,
+      "max_restarts": 10,
+      "interpreter": "env/bin/python",
+      "args": "runserver"
+    }
+  ]
 }
