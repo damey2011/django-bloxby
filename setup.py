@@ -53,7 +53,6 @@ setup(
     url='https://github.com/damey2011/django-bloxby',
     packages=[
         'bloxby',
-        'bloxby.ftp'
     ],
     include_package_data=True,
     install_requires=[
