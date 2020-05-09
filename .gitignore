@@ -50,3 +50,4 @@ docs/_build
 logs/
 env/
 db.sqlite3
+tmp_uploads/
