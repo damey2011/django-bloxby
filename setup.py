@@ -52,7 +52,8 @@ setup(
     author_email='adeyemidamilola3@gmail.com',
     url='https://github.com/damey2011/django-bloxby',
     packages=[
-        'djbloxby',
+        'djbloxby.bloxby',
+        'djbloxby.ftp'
     ],
     include_package_data=True,
     install_requires=[
