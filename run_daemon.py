@@ -19,7 +19,7 @@ from djbloxby.ftp.server import get_ftp_server
 
 HOST = ""
 PORT = 21
-ROOT_FOLDER = proj_path.split('/')[:-1]
+ROOT_FOLDER = '/'.join(proj_path.split('/')[:-1])
 PID_FILE = os.path.join(ROOT_FOLDER, 'logs', 'pyftpdlib.pid')
 LOG_FILE = os.path.join(ROOT_FOLDER, 'logs', 'pyftpdlib.log')
 WORKDIR = os.getcwd()
