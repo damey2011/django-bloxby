@@ -17,7 +17,7 @@ application = get_wsgi_application()
 
 from djbloxby.ftp.server import get_ftp_server
 
-HOST = ""
+HOST = "0.0.0.0"
 PORT = 21
 ROOT_FOLDER = '/'.join(proj_path.split('/')[:-1])
 PID_FILE = os.path.join(ROOT_FOLDER, 'logs', 'pyftpdlib.pid')
@@ -131,21 +131,23 @@ def daemonize():
 
 
 def main():
-    global PID_FILE, LOG_FILE
-    USAGE = "python [-p PIDFILE] [-l LOGFILE]\n\n" \
+    global PID_FILE, LOG_FILE, PORT
+    USAGE = "python [-p PIDFILE] [-l LOGFILE] [-z PORT]\n\n" \
             "Commands:\n  - start\n  - stop\n  - status"
     parser = optparse.OptionParser(usage=USAGE)
     parser.add_option('-l', '--logfile', dest='logfile',
                       help='the log file location')
     parser.add_option('-p', '--pidfile', dest='pidfile', default=PID_FILE,
                       help='file to store/retrieve daemon pid')
+    parser.add_option('-z', '--port', dest='port', default=PORT, help='Port to run the FTP server on.')
     options, args = parser.parse_args()
 
     if options.pidfile:
         PID_FILE = options.pidfile
     if options.logfile:
         LOG_FILE = options.logfile
-
+    if options.port:
+        PORT = options.port
     if not args:
         server = get_server()
         server.serve_forever()

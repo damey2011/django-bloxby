@@ -7,7 +7,7 @@ from django.conf import settings
 
 class CustomFileSystem(AbstractedFS):
     def __init__(self, root, cmd_channel):
-        root_path = settings.TMP
+        root_path = settings.TMP_UPLOADS_DIR
         if not os.path.exists(root_path):
             os.mkdir(root_path)
         root_path = os.path.join(root_path, cmd_channel.user_home)

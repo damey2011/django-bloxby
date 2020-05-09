@@ -15,6 +15,8 @@ class APIAuth(DummyAuthorizer):
     def validate_authentication(self, username, password, handler):
         msg = 'Authentication Failed'
         app_and_username_and_target = username.lower().split('|')
+        if len(app_and_username_and_target) != 4:
+            raise AuthenticationFailed('Invalid username')
         app_name = app_and_username_and_target[0]
         username = app_and_username_and_target[1]
         target = app_and_username_and_target[2]

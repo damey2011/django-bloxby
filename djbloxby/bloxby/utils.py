@@ -20,35 +20,49 @@ def replace_links(page):
                     css_assets.append(asset)
             except TemplateAsset.DoesNotExist:
                 pass
-    for script in soup.find_all('script'):
-        if script.get('src'):
-            src = script['src']
-            try:
-                asset = TemplateAsset.objects.get(initial_path=src)
-                script['src'] = asset.file.url
-            except TemplateAsset.DoesNotExist:
-                pass
-    for img in soup.find_all('img'):
-        if img.get('src'):
-            src = img['src']
-            try:
-                asset = TemplateAsset.objects.get(initial_path=src)
-                img['src'] = asset.file.url
-            except TemplateAsset.DoesNotExist:
-                pass
-
-    # Fix the inner links
-    for a in soup.find_all('a'):
-        if a.get('href') and a.get('href') not in ['#', 'javascript:void(0)']:
-            link = a['href']
-            try:
-                p = Page.objects.get(name=link)
-                a['href'] = p.absolute_url()
-            except Page.DoesNotExist:
-                pass
+    # for script in soup.find_all('script'):
+    #     if script.get('src'):
+    #         src = script['src']
+    #         try:
+    #             asset = TemplateAsset.objects.get(initial_path=src)
+    #             script['src'] = asset.file.url
+    #         except TemplateAsset.DoesNotExist:
+    #             pass
+    # for img in soup.find_all('img'):
+    #     if img.get('src'):
+    #         src = img['src']
+    #         try:
+    #             asset = TemplateAsset.objects.get(initial_path=src)
+    #             img['src'] = asset.file.url
+    #         except TemplateAsset.DoesNotExist:
+    #             pass
+    #
+    # # Fix the inner links
+    # for a in soup.find_all('a'):
+    #     if a.get('href') and a.get('href') not in ['#', 'javascript:void(0);', 'javascript:;']:
+    #         link = a['href']
+    #         try:
+    #             p = Page.objects.get(name=link)
+    #             a['href'] = p.absolute_url()
+    #         except Page.DoesNotExist:
+    #             pass
 
     html_content = soup.prettify()
     # Find all other asset embeddings in the HTML
+    links = re.findall('[\.*?\/?\w+/]*\.[\w+]{2,}', html_content)
+    for link in links:
+        if link.endswith('.html'):
+            try:
+                p = Page.objects.get(template=page.template, name=link)
+                html_content = html_content.replace(link, p.absolute_url())
+            except Page.DoesNotExist:
+                pass
+        else:
+            try:
+                ta = TemplateAsset.objects.get(template=page.template, initial_path=link.replace('../', ''))
+                html_content = html_content.replace(link, ta.file.url)
+            except TemplateAsset.DoesNotExist:
+                pass
 
     name = page.html.name.split('/')[-1]
     page.html.delete()

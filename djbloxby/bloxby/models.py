@@ -124,8 +124,8 @@ class Page(models.Model):
             self.process()
         return self.html.read()
 
-    def absolute_url(self):
-        return f'/?page={self.name}'
+    def absolute_url(self, base_path='/'):
+        return f'{base_path}?page={self.name}'
 
 
 class TemplateAsset(models.Model):

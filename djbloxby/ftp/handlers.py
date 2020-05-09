@@ -38,6 +38,8 @@ class Handler(FTPHandler):
             }, files={
                 rel_file_path: (rel_file_path, f.read())
             })
+            if 199 < resp.status_code < 300:
+                os.remove(file)
 
     def on_incomplete_file_sent(self, file):
         # do something when a file is partially sent
