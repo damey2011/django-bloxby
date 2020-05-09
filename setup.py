@@ -21,7 +21,7 @@ def get_version(*file_paths):
     raise RuntimeError('Unable to find version string.')
 
 
-version = get_version("bloxby", "__init__.py")
+version = get_version("djbloxby", "__init__.py")
 
 
 if sys.argv[-1] == 'publish':
@@ -42,18 +42,17 @@ if sys.argv[-1] == 'tag':
     sys.exit()
 
 readme = open('README.rst').read()
-history = open('HISTORY.rst').read().replace('.. :changelog:', '')
 
 setup(
     name='django-bloxby',
     version=version,
     description="""A django application for bridging bloxby and your django software supporting User creation, package creation and autologin""",
-    long_description=readme + '\n\n' + history,
+    long_description=readme,
     author='Damilola Adeyemi',
     author_email='adeyemidamilola3@gmail.com',
     url='https://github.com/damey2011/django-bloxby',
     packages=[
-        'bloxby',
+        'djbloxby',
     ],
     include_package_data=True,
     install_requires=[
