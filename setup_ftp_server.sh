@@ -1,7 +1,8 @@
 curl -sL https://deb.nodesource.com/setup_10.x | sudo -E bash -
 sudo apt install nodejs
 npm install pm2@latest -g
-sudo apt-get install python3 python3-pip
+echo "Y" | sudo apt-get install python3
+echo "Y" | sudo apt-get install python3-pip
 sudo pip3 install virtualenv
 virtualenv env -p python3
 pip install -r requirements.txt
