@@ -5,7 +5,7 @@ from django.core.files.base import ContentFile
 
 
 def replace_links(page):
-    from djbloxby.bloxby.models import TemplateAsset, Page
+    from bloxby.models import TemplateAsset, Page
     """Replace the links in the page here"""
     soup = bs4.BeautifulSoup(page.html.read(), 'html.parser')
     css_assets = []

@@ -38,8 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.sites',
-    'djbloxby.bloxby',
-    'djbloxby.ftp'
+    'bloxby',
+    'bloxby.ftp'
 ]
 
 MIDDLEWARE = [

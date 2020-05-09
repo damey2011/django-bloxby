@@ -21,7 +21,7 @@ def get_version(*file_paths):
     raise RuntimeError('Unable to find version string.')
 
 
-version = get_version("djbloxby", "__init__.py")
+version = get_version("bloxby", "__init__.py")
 
 if sys.argv[-1] == 'publish':
     try:
@@ -52,8 +52,8 @@ setup(
     author_email='adeyemidamilola3@gmail.com',
     url='https://github.com/damey2011/django-bloxby',
     packages=[
-        'djbloxby.bloxby',
-        'djbloxby.ftp'
+        'bloxby',
+        'bloxby.ftp'
     ],
     include_package_data=True,
     install_requires=[
@@ -63,7 +63,6 @@ setup(
         'bs4==0.0.1',
         'certifi==2020.4.5.1',
         'chardet==3.0.4',
-        'Django==3.0.6',
         'idna==2.9',
         'pyftpdlib==1.5.6',
         'pytz==2020.1',

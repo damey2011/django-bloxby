@@ -1,10 +1,8 @@
-import bs4
-from django.core.files.base import ContentFile
 from django.http import HttpResponse
 from django.views import View
 from django.views.decorators.csrf import csrf_exempt
 
-from djbloxby.bloxby.models import UserBridge, Template, Page, TemplateAsset
+from bloxby.models import UserBridge, Template, Page, TemplateAsset
 
 
 class ReceiveFTPItemsView(View):

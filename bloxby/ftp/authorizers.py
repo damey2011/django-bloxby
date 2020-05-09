@@ -1,7 +1,7 @@
 import requests
 from pyftpdlib.authorizers import DummyAuthorizer, AuthenticationFailed
 
-from djbloxby.ftp.models import Application
+from bloxby.ftp.models import Application
 
 
 class APIAuth(DummyAuthorizer):

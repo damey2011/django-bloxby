@@ -1,6 +1,6 @@
 from django.urls import path
 
-from djbloxby.bloxby import views
+from bloxby import views
 
 urlpatterns = [
     path('ftp/receive/', views.ReceiveFTPItemsView.as_view(), name='receive'),

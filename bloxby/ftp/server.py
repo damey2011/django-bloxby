@@ -1,9 +1,9 @@
 from django.contrib.sites.models import Site
 from pyftpdlib.servers import FTPServer
 
-from djbloxby.ftp.authorizers import APIAuth
-from djbloxby.ftp.filesystems import CustomFileSystem
-from djbloxby.ftp.handlers import Handler
+from bloxby.ftp.authorizers import APIAuth
+from bloxby.ftp.filesystems import CustomFileSystem
+from bloxby.ftp.handlers import Handler
 
 
 def get_ftp_server(host, port=21):

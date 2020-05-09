@@ -1,9 +1,9 @@
 from django.conf import settings
 from django.db import models
 
-from djbloxby.bloxby.managers import UserBridgeManager
-from djbloxby.bloxby.functions import Bloxby
-from djbloxby.bloxby.utils import replace_links
+from bloxby.managers import UserBridgeManager
+from bloxby.functions import Bloxby
+from bloxby.utils import replace_links
 
 bloxby = Bloxby()
 

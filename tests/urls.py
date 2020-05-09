@@ -10,5 +10,5 @@ from django.views.generic import RedirectView
 urlpatterns = [
     path('', RedirectView.as_view(url='/admin')),
     path('admin/', admin.site.urls),
-    path('bloxby/', include('djbloxby.bloxby.urls')),
+    path('bloxby/', include('bloxby.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
