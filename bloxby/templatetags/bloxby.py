@@ -12,5 +12,5 @@ def user_builder_dashboard(context):
         if user.is_authenticated and user.userbridge.bloxby_id:
             return user.userbridge.dashboard_url
     except UserBridge.DoesNotExist:
-        pass
+        return UserBridge.create(user).dashboard_url
     return '#'
