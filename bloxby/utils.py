@@ -66,7 +66,7 @@ def replace_links(page):
 
     name = page.html.name.split('/')[-1]
     page.html.delete()
-    page.html.save(name, ContentFile(html_content))
+    page.html.save(name, ContentFile(html_content.encode('utf-8')))
 
     if css_assets:
         css_link_pattern = 'url\("?[\w+\/\.]*\.[\w+]*'
@@ -82,4 +82,4 @@ def replace_links(page):
                     print(f'Link {nl} inside css is not registered.')
             name = asset.file.name.split('/')[-1]
             asset.file.delete()
-            asset.file.save(name, ContentFile(css_content))
+            asset.file.save(name, ContentFile(css_content.encode('utf-8')))
