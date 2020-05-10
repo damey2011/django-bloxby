@@ -20,36 +20,10 @@ def replace_links(page):
                     css_assets.append(asset)
             except TemplateAsset.DoesNotExist:
                 pass
-    # for script in soup.find_all('script'):
-    #     if script.get('src'):
-    #         src = script['src']
-    #         try:
-    #             asset = TemplateAsset.objects.get(initial_path=src)
-    #             script['src'] = asset.file.url
-    #         except TemplateAsset.DoesNotExist:
-    #             pass
-    # for img in soup.find_all('img'):
-    #     if img.get('src'):
-    #         src = img['src']
-    #         try:
-    #             asset = TemplateAsset.objects.get(initial_path=src)
-    #             img['src'] = asset.file.url
-    #         except TemplateAsset.DoesNotExist:
-    #             pass
-    #
-    # # Fix the inner links
-    # for a in soup.find_all('a'):
-    #     if a.get('href') and a.get('href') not in ['#', 'javascript:void(0);', 'javascript:;']:
-    #         link = a['href']
-    #         try:
-    #             p = Page.objects.get(name=link)
-    #             a['href'] = p.absolute_url()
-    #         except Page.DoesNotExist:
-    #             pass
 
     html_content = soup.prettify()
     # Find all other asset embeddings in the HTML
-    links = re.findall('[\.*?\/?\w+/\-_]*\.[\w+]{2,}', html_content)
+    links = re.findall('[\.\/]*?[\w+/\-_]*\.[\w+]{2,}', html_content)
     for link in links:
         if link.endswith('.html'):
             try:
@@ -69,7 +43,7 @@ def replace_links(page):
     page.html.save(name, ContentFile(html_content.encode('utf-8')))
 
     if css_assets:
-        css_link_pattern = 'url\("?[\.*?\/?\w+/\-_]*\.[\w+]{2,}'
+        css_link_pattern = 'url\("[\.\/]*?[\w+/\-_]*\.[\w+]{2,}'
         for asset in css_assets:
             css_content = asset.file.read().decode('utf-8')
             links = re.findall(css_link_pattern, css_content)
