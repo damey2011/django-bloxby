@@ -1,2 +1,2 @@
-__version__ = '0.0.32'
+__version__ = '0.0.33'
 default_app_config = 'bloxby.apps.BloxbyConfig'
