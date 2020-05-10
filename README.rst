@@ -228,9 +228,11 @@ You can enable this by running:
 
 
 .. code-block:: bash
-    sudo ufw allow from 178.62.12.206 to any port 60000:65535 proto tcp
 
-Where :code:`178.62.12.206` is whatever (domain or IP address) you configure in the :code:`Site`
+    sudo ufw allow from ip_address to any port 60000:65535 proto tcp
+
+
+Where :code:`ip_address` is whatever (domain or IP address) you configure in the :code:`Site`
 in admin.
 
 
