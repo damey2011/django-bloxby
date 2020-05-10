@@ -18,7 +18,7 @@ application = get_wsgi_application()
 from bloxby.ftp.server import get_ftp_server
 from django.contrib.sites.models import Site
 
-HOST = Site.objects.get_current().domain
+HOST = '0.0.0.0'
 PORT = 21
 ROOT_FOLDER = '/'.join(proj_path.split('/')[:-1])
 PID_FILE = os.path.join(ROOT_FOLDER, 'logs', 'pyftpdlib.pid')
