@@ -16,7 +16,6 @@ application = get_wsgi_application()
 # SO WE CAN RUN THE SCRIPT IN DJANGO CONTEXT
 
 from bloxby.ftp.server import get_ftp_server
-from django.contrib.sites.models import Site
 
 HOST = '0.0.0.0'
 PORT = 21
