@@ -217,6 +217,19 @@ Distinguishing Templates
 Coming
 
 
+Possible Issues
+===============
+
+FTP Client is able to connect and authenticate but unable to list directory. Enable passive ports
+on your server (where the FTP server runs). In this, passive ports run in the range 60000-65535.
+You can enable this by running:
+
+
+.. code-block:: bash
+    sudo ufw allow from 178.62.12.206 to any port 60000:65535 proto tcp
+
+Where :code:`178.62.12.206` is whatever (domain or IP address) you configure in the :code:`Site`
+in admin.
 
 
 Credits

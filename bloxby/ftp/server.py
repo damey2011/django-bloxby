@@ -12,6 +12,7 @@ def get_ftp_server(host, port=21):
     handler.authorizer = authorizer
     handler.abstracted_fs = CustomFileSystem
     handler.masquerade_address = Site.objects.get_current().domain
+    handler.passive_ports = range(60000, 65535)
     address = (host, port)
     server = FTPServer(address, handler)
     return server
