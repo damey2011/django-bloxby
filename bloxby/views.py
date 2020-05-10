@@ -24,7 +24,7 @@ class ReceiveFTPItemsView(View):
             obj_id = None
         files = request.FILES
         user_bloxby_id = request.POST.get('user_bloxby_id')
-        user = UserBridge.objects.get(pk=user_bloxby_id).user
+        user = UserBridge.objects.filter(bloxby_id=user_bloxby_id).first().user
         template, _ = Template.objects.get_or_create(owner=user, obj_id=obj_id, target=target)
         for key, file in files.items():
             if file.name.endswith('.html'):

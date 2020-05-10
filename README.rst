@@ -220,6 +220,8 @@ Coming
 Possible Issues
 ===============
 
+Make sure to set the correct address to the :code:`Site` in admin.
+
 FTP Client is able to connect and authenticate but unable to list directory. Enable passive ports
 on your server (where the FTP server runs). In this, passive ports run in the range 60000-65535.
 You can enable this by running:
