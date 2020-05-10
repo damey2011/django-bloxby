@@ -49,7 +49,7 @@ def replace_links(page):
 
     html_content = soup.prettify()
     # Find all other asset embeddings in the HTML
-    links = re.findall('[\.*?\/?\w+/]*\.[\w+]{2,}', html_content)
+    links = re.findall('[\.*?\/?\w+/\-_]*\.[\w+]{2,}', html_content)
     for link in links:
         if link.endswith('.html'):
             try:
@@ -69,7 +69,7 @@ def replace_links(page):
     page.html.save(name, ContentFile(html_content.encode('utf-8')))
 
     if css_assets:
-        css_link_pattern = 'url\("?[\w+\/\.]*\.[\w+]*'
+        css_link_pattern = 'url\("?[\.*?\/?\w+/\-_]*\.[\w+]{2,}'
         for asset in css_assets:
             css_content = asset.file.read().decode('utf-8')
             links = re.findall(css_link_pattern, css_content)
