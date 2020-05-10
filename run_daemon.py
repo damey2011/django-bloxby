@@ -15,9 +15,10 @@ from django.core.wsgi import get_wsgi_application
 application = get_wsgi_application()
 # SO WE CAN RUN THE SCRIPT IN DJANGO CONTEXT
 
-from djbloxby.ftp.server import get_ftp_server
+from bloxby.ftp.server import get_ftp_server
+from django.contrib.sites.models import Site
 
-HOST = "0.0.0.0"
+HOST = Site.objects.get_current().domain
 PORT = 21
 ROOT_FOLDER = '/'.join(proj_path.split('/')[:-1])
 PID_FILE = os.path.join(ROOT_FOLDER, 'logs', 'pyftpdlib.pid')
@@ -131,7 +132,7 @@ def daemonize():
 
 
 def main():
-    global PID_FILE, LOG_FILE, PORT
+    global PID_FILE, LOG_FILE, PORT, HOST
     USAGE = "python [-p PIDFILE] [-l LOGFILE] [-z PORT]\n\n" \
             "Commands:\n  - start\n  - stop\n  - status"
     parser = optparse.OptionParser(usage=USAGE)
@@ -139,6 +140,7 @@ def main():
                       help='the log file location')
     parser.add_option('-p', '--pidfile', dest='pidfile', default=PID_FILE,
                       help='file to store/retrieve daemon pid')
+    parser.add_option('-y', '--host', dest='host', default=HOST, help='Host to run the FTP server on.')
     parser.add_option('-z', '--port', dest='port', default=PORT, help='Port to run the FTP server on.')
     options, args = parser.parse_args()
 
@@ -146,6 +148,8 @@ def main():
         PID_FILE = options.pidfile
     if options.logfile:
         LOG_FILE = options.logfile
+    if options.host:
+        HOST = options.host
     if options.port:
         PORT = options.port
     if not args:
