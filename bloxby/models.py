@@ -1,7 +1,10 @@
 import io
+from json import JSONDecodeError
 
+import magic
 import requests
 from django.conf import settings
+from django.core.files.uploadedfile import SimpleUploadedFile
 from django.db import models
 
 from bloxby.managers import UserBridgeManager
@@ -102,16 +105,21 @@ class UserBridge(models.Model):
         base_url = settings.BLOXBY_BUILDER.get('custom_api_url', 'http://159.65.79.47:3000')
         response = requests.get(f'{base_url}/{self.autologin_token}/templates')
         sites = []
-        for temp in response.json():
-            sites.append(
-                self.Site(
-                    temp['sites_id'],
-                    temp['users_id'],
-                    temp['sites_name'],
-                    temp['sitethumb'],
-                    temp['sites_lastupdate_on']
+        try:
+            json_data = response.json()
+        except JSONDecodeError:
+            json_data = []
+        if json_data and isinstance(json_data, list):
+            for temp in response.json():
+                sites.append(
+                    self.Site(
+                        temp['sites_id'],
+                        temp['users_id'],
+                        temp['sites_name'],
+                        temp['sitethumb'],
+                        temp['sites_lastupdate_on']
+                    )
                 )
-            )
         return sites
 
     def use_site(self, site_id, target, obj_id=None):
@@ -120,6 +128,8 @@ class UserBridge(models.Model):
         response = requests.get(f'{base_url}/{site_id}/export')
         site_archive = io.BytesIO(response.content)
         for key, file in extract_zip(site_archive):
+            content_type = magic.from_buffer(file, True)
+            file = SimpleUploadedFile(key.split('/')[-1], file, content_type)
             if key.endswith('.html'):
                 page, _ = Page.objects.update_or_create(
                     template=template, name=key, defaults={'html': file, 'is_built': False}
