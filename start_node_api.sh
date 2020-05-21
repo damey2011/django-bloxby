@@ -1,1 +1,1 @@
-pm2 start index.js --watch
+pm2 start node_api/index.js --watch

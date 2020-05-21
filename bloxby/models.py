@@ -99,7 +99,7 @@ class UserBridge(models.Model):
         return new
 
     def user_templates(self):
-        base_url = settings.BLOXBY_BUILDER.get('custom_api_url', 'http://clouddigitalmarketing.com:3000')
+        base_url = settings.BLOXBY_BUILDER.get('custom_api_url', 'http://159.65.79.47:3000')
         response = requests.get(f'{base_url}/{self.autologin_token}/templates')
         sites = []
         for temp in response.json():
@@ -116,7 +116,7 @@ class UserBridge(models.Model):
 
     def use_site(self, site_id, target, obj_id=None):
         template, _ = Template.objects.get_or_create(owner=self.user, obj_id=obj_id, target=target)
-        base_url = settings.BLOXBY_BUILDER.get('custom_api_url', 'http://clouddigitalmarketing.com:3000')
+        base_url = settings.BLOXBY_BUILDER.get('custom_api_url', 'http://159.65.79.47:3000')
         response = requests.get(f'{base_url}/{site_id}/export')
         site_archive = io.BytesIO(response.content)
         for key, file in extract_zip(site_archive):
