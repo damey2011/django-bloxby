@@ -52,3 +52,5 @@ env/
 db.sqlite3
 tmp_uploads/
 media/
+
+node_api/node_modules/
