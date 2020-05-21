@@ -3,7 +3,6 @@ const mysql = require('mysql');
 const bodyparser = require('body-parser');
 const fs = require('fs');
 const request = require('request');
-const tempDirectory = require('temp-dir');
 const app = express();
 
 app.use(bodyparser.json());
@@ -69,7 +68,7 @@ const signIn = async (email, password) => {
 
 app.get('/:site_id/export', (req, res) => {
     const sql_query = 'SELECT pages_name FROM pages WHERE sites_id=?';
-    const fileName = tempDirectory + '/website.zip'
+    const fileName = 'website.zip'
     connectSQL()
     const file = fs.createWriteStream(fileName);
     connection.query(sql_query, [req.params.site_id], (err, rows, fields) => {

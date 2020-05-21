@@ -1,0 +1,9 @@
+{
+  "name": "node_api",
+  "script": "node_api/index.js",
+  "autorestart": true,
+  "watch_options": {
+    "followSymlinks": false
+  },
+  "watch": false
+}
