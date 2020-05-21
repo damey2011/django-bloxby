@@ -51,6 +51,7 @@ The following settings are available to you (in :code:`settings.py`), these sett
 
     BLOXBY_BUILDER = {
         'url': 'http://clouddigitalmarketing.com',
+        'custom_api_url': '',
         'username': 'hello@linkfusions.com',
         'password': 'accountpassword',
         'package_prefix': 'LF-',

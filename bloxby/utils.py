@@ -1,4 +1,5 @@
 import re
+from zipfile import ZipFile
 
 import bs4
 from django.core.files.base import ContentFile
@@ -62,3 +63,8 @@ def replace_links(page):
             name = asset.file.name.split('/')[-1]
             asset.file.delete()
             asset.file.save(name, ContentFile(css_content.encode('utf-8')))
+
+
+def extract_zip(input_zip):
+    input_zip = ZipFile(input_zip)
+    return {name: input_zip.read(name) for name in input_zip.namelist()}

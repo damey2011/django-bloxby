@@ -123,6 +123,7 @@ BLOXBY_BUILDER = {
     'username': '',
     'password': '',
     'url': '',
+    'custom_api_url': '',
     'package_prefix': '',
     'public_key': '',
     'account_email_prefix': '',

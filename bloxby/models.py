@@ -1,9 +1,12 @@
+import io
+
+import requests
 from django.conf import settings
 from django.db import models
 
 from bloxby.managers import UserBridgeManager
 from bloxby.functions import Bloxby
-from bloxby.utils import replace_links
+from bloxby.utils import replace_links, extract_zip
 
 bloxby = Bloxby()
 
@@ -21,6 +24,14 @@ class UserBridge(models.Model):
 
     def __str__(self):
         return f'{self.user.email} - {self.bloxby_id}'
+
+    class Site:
+        def __init__(self, sites_id, users_id, sites_name, sitethumb, sites_lastupdate_on):
+            self.sites_id = sites_id
+            self.users_id = users_id
+            self.sites_name = sites_name
+            self.sitethumb = sitethumb
+            self.sites_lastupdate_on = sites_lastupdate_on
 
     @property
     def dashboard_url(self):
@@ -87,6 +98,36 @@ class UserBridge(models.Model):
                             break
         return new
 
+    def user_templates(self):
+        base_url = settings.BLOXBY_BUILDER.get('custom_api_url', 'http://clouddigitalmarketing.com:3000')
+        response = requests.get(f'{base_url}/{self.autologin_token}/templates')
+        sites = []
+        for temp in response.json():
+            sites.append(
+                self.Site(
+                    temp['sites_id'],
+                    temp['users_id'],
+                    temp['sites_name'],
+                    temp['sitethumb'],
+                    temp['sites_lastupdate_on']
+                )
+            )
+        return sites
+
+    def use_site(self, site_id, target, obj_id=None):
+        template, _ = Template.objects.get_or_create(owner=self.user, obj_id=obj_id, target=target)
+        base_url = settings.BLOXBY_BUILDER.get('custom_api_url', 'http://clouddigitalmarketing.com:3000')
+        response = requests.get(f'{base_url}/{site_id}/export')
+        site_archive = io.BytesIO(response.content)
+        for key, file in extract_zip(site_archive):
+            if key.endswith('.html'):
+                page, _ = Page.objects.update_or_create(
+                    template=template, name=key, defaults={'html': file, 'is_built': False}
+                )
+            else:
+                asset, _ = TemplateAsset.objects.update_or_create(template=template, initial_path=key,
+                                                                  defaults={'file': file})
+
 
 class Template(models.Model):
     owner = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
@@ -137,3 +178,4 @@ class TemplateAsset(models.Model):
 
     def __str__(self):
         return f'{self.initial_path} - {self.file.url}'
+
