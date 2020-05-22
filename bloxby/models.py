@@ -125,8 +125,8 @@ class UserBridge(models.Model):
         return sites
 
     def save_site_from_remote(self, site_id, target, obj_id=None):
-        Template.objects.filter(owner=self.user, obj_id=obj_id, target=target).delete()
-        template = Template.objects.create(owner=self.user, obj_id=obj_id, target=target)
+        Template.objects.filter(owner=self.user, obj_id=obj_id, target=target, remote_id=site_id).delete()
+        template = Template.objects.create(owner=self.user, obj_id=obj_id, target=target, remote_id=site_id)
         base_url = settings.BLOXBY_BUILDER.get('custom_api_url', 'http://159.65.79.47:3000')
         response = requests.get(f'{base_url}/{site_id}/export')
         site_archive = io.BytesIO(response.content)
