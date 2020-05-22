@@ -147,6 +147,7 @@ class Template(models.Model):
     preview = models.FileField(upload_to='sc', null=True, blank=True)
     target = models.CharField(max_length=100)
     obj_id = models.IntegerField(null=True, blank=True)
+    remote_id = models.IntegerField(null=True, blank=True, help_text='ID of the template on the remote server.')
 
     @property
     def index_page(self):
