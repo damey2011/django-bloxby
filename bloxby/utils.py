@@ -20,14 +20,14 @@ def replace_links(page):
             href = link['href']
             try:
                 asset = TemplateAsset.objects.get(initial_path=href, template=page.template)
+            except TemplateAsset.DoesNotExist:
+                asset = None
+            except TemplateAsset.MultipleObjectsReturned:
+                asset = TemplateAsset.objects.filter(initial_path=href, template=page.template).first()
+            if asset:
                 link['href'] = asset.file.url
                 if '.css' in href:
                     css_assets.append(asset)
-            except TemplateAsset.DoesNotExist:
-                pass
-            except TemplateAsset.MultipleObjectsReturned:
-                asset = TemplateAsset.object.filter(initial_path=href, template=page.template).first()
-
     html_content = soup.prettify()
     # Find all other asset embeddings in the HTML
     links = re.findall(LINK_PATTERN, html_content)
