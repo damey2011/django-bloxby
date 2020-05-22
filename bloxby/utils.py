@@ -36,7 +36,7 @@ def replace_links(page):
         if search_path.endswith('.html'):
             try:
                 p = Page.objects.get(template=page.template, name=search_path)
-                html_content = html_content.replace(link, p.absolute_url())
+                html_content = html_content.replace(link, p.absolute_url(''))
             except Page.DoesNotExist:
                 pass
         else:

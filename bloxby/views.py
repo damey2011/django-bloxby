@@ -59,7 +59,17 @@ class AuthFTPUserView(View):
 class PageRenderView(View):
     def get(self, request, *args, **kwargs):
         template = Template.objects.first()
-        html = template.index_page.render() if template else 'Does not exist'
+        if template:
+            page = self.request.GET.get('page')
+            if not page:
+                html = template.index_page.render()
+            else:
+                try:
+                    html = template.page_set.get(name=page).render()
+                except Page.DoesNotExist:
+                    raise Http404
+        else:
+            html = 'Does not exist'
         return HttpResponse(html)
 
 
@@ -73,6 +83,13 @@ class TestIndexView(TemplateView):
 
 class ImportSiteView(View):
     def get(self, request, *args, **kwargs):
+        """
+        Make sure you pass 'sites_id', 'target' and 'obj_id' in URL parameters
+        :sites_id: This is the ID of the site you want to import over
+        :target: This can be anything, just for you to be able to identify where you are using the template currently,
+        I'm using them as either 'event' or 'home'.
+        :obj_id: This is going to be the pk of the instance or event as the case may be
+        """
         sites_id = request.GET.get('sites_id')
         target = request.GET.get('target', None)
         obj_id = request.GET.get('obj_id', None)
