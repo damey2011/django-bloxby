@@ -1,4 +1,5 @@
 from django import template
+from django.conf import settings
 
 from ..models import UserBridge
 
@@ -17,3 +18,8 @@ def user_builder_dashboard(context):
         # Never mind
         pass
     return UserBridge.create(user).dashboard_url
+
+
+@register.simple_tag
+def builder_create_site():
+    return f"{settings.BLOXBY_BUILDER['url']}/sites/create"
