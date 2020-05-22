@@ -19,12 +19,14 @@ def replace_links(page):
             # Stylesheets, fonts, favicon
             href = link['href']
             try:
-                asset = TemplateAsset.objects.get(initial_path=href)
+                asset = TemplateAsset.objects.get(initial_path=href, template=page.template)
                 link['href'] = asset.file.url
                 if '.css' in href:
                     css_assets.append(asset)
             except TemplateAsset.DoesNotExist:
                 pass
+            except TemplateAsset.MultipleObjectsReturned:
+                asset = TemplateAsset.object.filter(initial_path=href, template=page.template).first()
 
     html_content = soup.prettify()
     # Find all other asset embeddings in the HTML
