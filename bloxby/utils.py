@@ -4,8 +4,9 @@ from zipfile import ZipFile
 import bs4
 from django.core.files.base import ContentFile
 
+LINK_PATTERN = '[\.*?\/?\w+/\-_]{1,}\.[\w+]{2,}'
 
-LINK_PATTERN = '[\.*?\/?\w+/\-_]*\.[\w+]{2,}'
+CSS_LINK_PATTERN = 'url\([./]*?[\'"]?[\w+/.]*[?\w+]*[\'"]?\)'
 
 
 def replace_links(page):
@@ -52,12 +53,13 @@ def replace_links(page):
     if css_assets:
         for asset in css_assets:
             css_content = asset.file.read().decode('utf-8')
-            links = re.findall(LINK_PATTERN, css_content)
+            links = re.findall(CSS_LINK_PATTERN, css_content)
             for link in links:
-                nl = link.replace('../', '')
+                nl = link.replace('../', '').lstrip('url(').rstrip(')').strip('\'').strip('"').strip('.').strip('/')
+                nl = nl.split('?')[0]
                 try:
                     link_inside = TemplateAsset.objects.get(initial_path=nl, template=asset.template)
-                    css_content = css_content.replace(link, link_inside.file.url)
+                    css_content = css_content.replace(link, f'url({link_inside.file.url})')
                 except TemplateAsset.DoesNotExist:
                     print(f'Link {nl} inside css is not registered.')
             name = asset.file.name.split('/')[-1]

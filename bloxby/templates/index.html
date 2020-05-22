@@ -13,7 +13,15 @@
 <a href="{{ dashboard }}" target="_blank">New</a>
 <ul>
     {% for item in request.user.userbridge.user_templates %}
-        <li>{{ item.sites_name }}</li>
+        <li style="max-width: 400px;">
+            <div>
+                <img style="max-width: 100%; height: auto;" src="{{ item.sitethumb }}" alt="{{ item.sites_name }}">
+            </div>
+            <div>
+                <div style="text-align: center;">{{ item.sites_name }}</div>
+                <div><a href="{% url 'import-site' %}?sites_id={{ item.sites_id }}&target=event&obj_id=1">Activate</a></div>
+            </div>
+        </li>
     {% empty %}
         <li>No template available</li>
     {% endfor %}

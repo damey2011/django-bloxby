@@ -1,4 +1,4 @@
-from django.http import HttpResponse
+from django.http import HttpResponse, Http404, JsonResponse
 from django.views import View
 from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import TemplateView
@@ -69,3 +69,15 @@ class TestIndexView(TemplateView):
     def get_context_data(self, **kwargs):
         ctx = super(TestIndexView, self).get_context_data(**kwargs)
         return ctx
+
+
+class ImportSiteView(View):
+    def get(self, request, *args, **kwargs):
+        sites_id = request.GET.get('sites_id')
+        target = request.GET.get('target', None)
+        obj_id = request.GET.get('obj_id', None)
+        if not sites_id:
+            raise Http404
+        # Sample, we will use it for event number 1
+        request.user.userbridge.use_site(sites_id, target, obj_id)
+        return JsonResponse({'status': 'success'})

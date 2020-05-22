@@ -118,7 +118,7 @@ class UserBridge(models.Model):
                         temp['sites_id'],
                         temp['users_id'],
                         temp['sites_name'],
-                        temp['sitethumb'],
+                        f'{settings.BLOXBY_BUILDER["url"]}/{temp["sitethumb"]}',
                         temp['sites_lastupdate_on']
                     )
                 )
@@ -129,7 +129,7 @@ class UserBridge(models.Model):
         base_url = settings.BLOXBY_BUILDER.get('custom_api_url', 'http://159.65.79.47:3000')
         response = requests.get(f'{base_url}/{site_id}/export')
         site_archive = io.BytesIO(response.content)
-        for key, file in extract_zip(site_archive):
+        for key, file in extract_zip(site_archive).items():
             content_type = magic.from_buffer(file, True)
             file = SimpleUploadedFile(key.split('/')[-1], file, content_type)
             if key.endswith('.html'):

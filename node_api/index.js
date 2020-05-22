@@ -83,30 +83,34 @@ app.get('/:site_id/export', (req, res) => {
                     data[`pages[${page.pages_name}]`] = ''
                 })
 
-                signIn('admin@admin.com', 'password').then(cookies => {
-                    let response = request.post({
-                        url: 'http://clouddigitalmarketing.com/sites/export',
-                        form: data,
-                        followAllRedirects: true,
-                        responseType: 'stream',
-                        headers: {
-                            'Cookie': cookies,
-                        },
-                        gzip: true
-                    });
+                signIn('exporter@virtualfusions.com', 'Muhammad007').then(async cookies => {
+                    if (!cookies.includes('bloxby_login_token')) {
+                        res.send('Login Failed')
+                    } else {
+                        let response = await request.post({
+                            url: 'http://clouddigitalmarketing.com/sites/export',
+                            formData: data,
+                            followAllRedirects: true,
+                            responseType: 'stream',
+                            headers: {
+                                'Cookie': cookies,
+                            },
+                            gzip: true
+                        });
 
-                    response.pipe(file);
+                        response.pipe(file);
 
-                    file.on('finish', () => {
-                        res.sendFile(fileName, {root: __dirname});
-                        fs.unlink(fileName, (err) => {
-                            if (err) throw err;
-                        })
-                    });
+                        file.on('finish', () => {
+                            res.sendFile(fileName, {root: __dirname});
+                            // fs.unlink(fileName, (err) => {
+                            //     if (err) throw err;
+                            // })
+                        });
 
-                    file.on('error', () => {
-                        res.send('Error downloading')
-                    });
+                        file.on('error', () => {
+                            res.send('Error downloading')
+                        });
+                    }
                 })
             })
         })
