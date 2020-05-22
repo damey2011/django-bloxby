@@ -79,5 +79,5 @@ class ImportSiteView(View):
         if not sites_id:
             raise Http404
         # Sample, we will use it for event number 1
-        request.user.userbridge.use_site(sites_id, target, obj_id)
+        request.user.userbridge.save_site_from_remote(sites_id, target, obj_id)
         return JsonResponse({'status': 'success'})

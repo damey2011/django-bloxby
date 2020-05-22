@@ -124,21 +124,22 @@ class UserBridge(models.Model):
                 )
         return sites
 
-    def use_site(self, site_id, target, obj_id=None):
-        template, _ = Template.objects.get_or_create(owner=self.user, obj_id=obj_id, target=target)
+    def save_site_from_remote(self, site_id, target, obj_id=None):
+        Template.objects.filter(owner=self.user, obj_id=obj_id, target=target).delete()
+        template = Template.objects.create(owner=self.user, obj_id=obj_id, target=target)
         base_url = settings.BLOXBY_BUILDER.get('custom_api_url', 'http://159.65.79.47:3000')
         response = requests.get(f'{base_url}/{site_id}/export')
         site_archive = io.BytesIO(response.content)
-        for key, file in extract_zip(site_archive).items():
+        unzipped = extract_zip(site_archive)
+        for key, file in unzipped.items():
             content_type = magic.from_buffer(file, True)
             file = SimpleUploadedFile(key.split('/')[-1], file, content_type)
             if key.endswith('.html'):
-                page, _ = Page.objects.update_or_create(
-                    template=template, name=key, defaults={'html': file, 'is_built': False}
+                Page.objects.create(
+                    template=template, name=key, html=file, is_built=False
                 )
             else:
-                asset, _ = TemplateAsset.objects.update_or_create(template=template, initial_path=key,
-                                                                  defaults={'file': file})
+                TemplateAsset.objects.create(template=template, initial_path=key, file=file)
 
 
 class Template(models.Model):
@@ -190,4 +191,3 @@ class TemplateAsset(models.Model):
 
     def __str__(self):
         return f'{self.initial_path} - {self.file.url}'
-

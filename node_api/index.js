@@ -69,6 +69,9 @@ const signIn = async (email, password) => {
 app.get('/:site_id/export', (req, res) => {
     const sql_query = 'SELECT pages_name FROM pages WHERE sites_id=?';
     const fileName = 'website.zip'
+    fs.unlink(fileName, (err) => {
+        // If any existing one, delete
+    })
     const file = fs.createWriteStream(fileName);
     connectSQL()
         .then(connection => {
@@ -85,7 +88,7 @@ app.get('/:site_id/export', (req, res) => {
 
                 signIn('exporter@virtualfusions.com', 'Muhammad007').then(async cookies => {
                     if (!cookies.includes('bloxby_login_token')) {
-                        res.send('Login Failed')
+                        res.send({"status": "Login Failed"})
                     } else {
                         let response = await request.post({
                             url: 'http://clouddigitalmarketing.com/sites/export',
@@ -102,9 +105,6 @@ app.get('/:site_id/export', (req, res) => {
 
                         file.on('finish', () => {
                             res.sendFile(fileName, {root: __dirname});
-                            // fs.unlink(fileName, (err) => {
-                            //     if (err) throw err;
-                            // })
                         });
 
                         file.on('error', () => {
