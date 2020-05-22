@@ -1,6 +1,7 @@
 from django.http import HttpResponse
 from django.views import View
 from django.views.decorators.csrf import csrf_exempt
+from django.views.generic import TemplateView
 
 from bloxby.models import UserBridge, Template, Page, TemplateAsset
 
@@ -60,3 +61,11 @@ class PageRenderView(View):
         template = Template.objects.first()
         html = template.index_page.render() if template else 'Does not exist'
         return HttpResponse(html)
+
+
+class TestIndexView(TemplateView):
+    template_name = 'index.html'
+
+    def get_context_data(self, **kwargs):
+        ctx = super(TestIndexView, self).get_context_data(**kwargs)
+        return ctx

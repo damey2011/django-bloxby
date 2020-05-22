@@ -35,7 +35,7 @@ app.listen('3000', '0.0.0.0', () => {
 });
 
 app.get('/:auto_login_token/templates', (req, res) => {
-    const sql_query = 'SELECT users_id, sites_name, sitethumb, sites_lastupdate_on FROM sites INNER JOIN users ON sites.users_id=users.id WHERE users.auto_login_token=?;'
+    const sql_query = 'SELECT users_id, sites_id, sites_name, sitethumb, sites_lastupdate_on FROM sites INNER JOIN users ON sites.users_id=users.id WHERE users.auto_login_token=?;'
     connectSQL()
     connection.query(sql_query, [req.params.auto_login_token], (err, rows, fields) => {
         if (!err) {

@@ -42,6 +42,8 @@ class UserBridge(models.Model):
             url = settings.BLOXBY_BUILDER['url']
             token = self.autologin_token
             hash_string = bloxby.generate_login_hash()
+            if not token:
+                token = self.create(self.user).autologin_token
             return f"{url}/auth/alogin/?token={token}&hash={hash_string}"
         return '#'
 

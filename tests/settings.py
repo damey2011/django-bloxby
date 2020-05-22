@@ -120,14 +120,15 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 BLOXBY_BUILDER = {
-    'username': '',
-    'password': '',
-    'url': '',
+    'username': 'builder@virtualfusions.com',
+    'password': 'Muhammad007',
+    'url': 'http://clouddigitalmarketing.com',
     'custom_api_url': 'http://159.65.79.47:3000',
-    'package_prefix': '',
-    'public_key': '',
-    'account_email_prefix': '',
-    'autologin_hash': '',
+    'package_prefix': 'LLF-',
+    'public_key': 'QPLOEF-FNDI3Z-NDK33L',
+    'account_email_prefix': 'AEFF-',
+    'autologin_hash': 'M9Y37E-A11K9-H1S8K',
+    'default_package_id': 14
 }
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')

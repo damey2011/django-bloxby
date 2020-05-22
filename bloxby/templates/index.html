@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+{% load bloxby %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1>
+    Templates
+</h1>
+{% user_builder_dashboard as dashboard %}
+<a href="{{ dashboard }}" target="_blank">New</a>
+<ul>
+    {% for item in request.user.userbridge.user_templates %}
+        <li>{{ item.sites_name }}</li>
+    {% empty %}
+        <li>No template available</li>
+    {% endfor %}
+</ul>
+</body>
+</html>

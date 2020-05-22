@@ -9,8 +9,11 @@ register = template.Library()
 def user_builder_dashboard(context):
     user = context['request'].user
     try:
-        if user.is_authenticated and user.userbridge.bloxby_id:
-            return user.userbridge.dashboard_url
+        if user.is_authenticated:
+            userbridge = UserBridge.objects.get(user=user)
+            if userbridge.bloxby_id:
+                return user.userbridge.dashboard_url
     except UserBridge.DoesNotExist:
-        return UserBridge.create(user).dashboard_url
-    return '#'
+        # Never mind
+        pass
+    return UserBridge.create(user).dashboard_url
