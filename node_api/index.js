@@ -68,10 +68,12 @@ const signIn = async (email, password) => {
 
 app.get('/:site_id/export', (req, res) => {
     const sql_query = 'SELECT pages_name FROM pages WHERE sites_id=?';
-    const fileName = 'website.zip'
-    fs.unlink(fileName, (err) => {
-        // If any existing one, delete
-    })
+    const fileName = 'website.zip';
+    try {
+        fs.unlinkSync(fileName);
+    } catch (err) {
+        console.error(err)
+    }
     const file = fs.createWriteStream(fileName);
     connectSQL()
         .then(connection => {
