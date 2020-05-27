@@ -96,17 +96,17 @@ Once the settings are configured you could run requests to access the default en
     # Could also do .update, .retrieve, .delete with this.
 
 
-The full parameters and data you can pass into the :code:`Users` methods and :code:`Packages` can be found `here <https://support.bloxby.com/knowledge-base/restful-api-end-point-api-users/>`_ and
+More information on integrating with the default APIs of :code:`Users` and :code:`Packages` can be found `here <https://support.bloxby.com/knowledge-base/restful-api-end-point-api-users/>`_ and
 `here <https://support.bloxby.com/knowledge-base/restful-api-end-point-api-packages/>`_ respectively.
+
 
 Template
 --------
 
-.. code-block:: html
+You could autologin user in html by getting the autologin URL for the current user, this process also creates a new account on the
+the bloxby instance for the current logged in if they do not already have one.
 
-    <!-- You could autologin user in html by getting the autologin URL for the current user, this process also creates a new account on the
-        the bloxby instance for the current logged in if they do not already have one.
-    -->
+.. code-block:: html
 
     {% load bloxby %}
 
@@ -116,7 +116,8 @@ Template
 Setup Extra API server
 ----------------------
 
-In the repo, there is a folder named :code:`node_api` that contains Node.js server code that accesses the database of the bloxby server directly.
+This extra server helps to provide extra functionalities not provided by the default API service such as export and pulling of templates.
+In the repo, there is a folder named :code:`node_api` that contains Node.js server code that accesses the database of the Bloxby server directly.
 To configure this, open the file at :code:`node_api/index.js` and set the parameters of the database connection pool function like this:
 
 .. code-block:: javascript
