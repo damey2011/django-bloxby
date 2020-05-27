@@ -157,7 +157,7 @@ End points provided by the node server
 ######################################
 
 - :code:`/<autologin_token>/templates`: This endpoint would return the templates of the user whose autologin token is passed.
-- :code:`/<site_id>/export/`: This returns a zip file of the exported site.
+- :code:`/<site_id>/export/`: This returns a zip file of the exported site whose site_id is passed.
 
 Both endpoints take only :code:`GET` requests. You don't need to consume these endpoints raw by the way, just for documentation purpose.
 The next section provides information on how to consume these endpoints within the library in an abstract manner.
