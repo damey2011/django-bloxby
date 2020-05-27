@@ -6,16 +6,7 @@ Django Bloxby
     :target: https://badge.fury.io/py/django-bloxby
 
 A django application for bridging bloxby and your django software supporting User creation, package creation and autologin
-and also bloxby publishing through FTP to your django application. Though the later needs an intermediate server.
-
-
-Quick Flow Explanation
-----------------------
-
-
-For your application to communicate with the bloxby builder instance which provides interface for only
-:code:`user management`, :code:`package management` and :code:`autologin`, it can do a direct interfacing with
-the builder application because the builder application provides APIs for that.
+and also publishing sites from the bloxby application to your django application.
 
 
 Quickstart
@@ -34,15 +25,15 @@ it has changed in version :code:`0.0.20` since the ftp part has been integrated 
 
     INSTALLED_APPS = (
         ...
-        'djbloxby.bloxby',
+        'bloxby',
 
         # optional, if you are running the FTP server
-        'djbloxby.ftp'
+        'bloxby.ftp'
         ...
     )
 
 
-The following settings are available to you (in :code:`settings.py`), these settings are only necessary for :code:`djbloxby.bloxby`:
+The following settings are available to you (in :code:`settings.py`):
 
 .. code-block:: python
 
@@ -60,15 +51,15 @@ The following settings are available to you (in :code:`settings.py`), these sett
 
 
 
-- *url*: This is the base url of the server that hosts the bloxby builder.
-- *custom_api_url*: This is the base URL of the node server that interfaces the bloxby database to provide data not provided by the default bloxby builder API.
-- *username*: Admin user email
-- *password*: Password of the admin user specified
-- *package_prefix*: This could be empty, but it is used to distinguish packages in case of your builder being accessed by more than one application.
-- *account_prefix*: Same explanation goes here, in case you have some users shared across your applications.
-- *public_key*: API key you generated and saved in the admin settings on your bloxby dashboard.
-- *autologin_hash*: The auto login hash which you as well got from the dashboard.
-- *default_package_id*: Default package to add for new users being created if none is provided at the point of calling the create function.
+- :code:`url`: This is the base url of the server that hosts the bloxby builder.
+- :code:`custom_api_url`: This is the base URL of the node server that interfaces the bloxby database to provide data not provided by the default bloxby builder API.
+- :code:`username`: Admin user email
+- :code:`password`: Password of the admin user specified
+- :code:`package_prefix`: This could be empty, but it is used to distinguish packages in case of your builder being accessed by more than one application.
+- :code:`account_prefix`: Same explanation goes here, in case you have some users shared across your applications.
+- :code:`public_key`: API key you generated and saved in the admin settings on your bloxby dashboard.
+- :code:`autologin_hash`: The auto login hash which you as well got from the dashboard.
+- :code:`default_package_id`: Default package to add for new users being created if none is provided at the point of calling the create function.
 
 
 Then run migrate command. :code:`python manage.py migrate`.
@@ -85,6 +76,8 @@ Once the settings are configured you could run requests to access the default en
     b = Bloxby()
     # Retrieve User with id of 4
     b.Users.retrieve(4)
+    # Delete User with id of 4
+    b.Users.delete(4)
     # Update user with id of 4
     b.Users.update(4, last_name='New')
     # Create new user
@@ -95,10 +88,16 @@ Once the settings are configured you could run requests to access the default en
                       disk_space=100,
                       export_site=True,
                       ftp_publish=True, price=4.00, currency='USD')
+
+    b.Packages.delete(3)
+    # Delete packages with id of 3
+
     # .....
     # Could also do .update, .retrieve, .delete with this.
 
 
+The full parameters and data you can pass into the :code:`Users` methods and :code:`Packages` can be found `<here https://support.bloxby.com/knowledge-base/restful-api-end-point-api-users/>`_ and
+`<here https://support.bloxby.com/knowledge-base/restful-api-end-point-api-packages/>`_ respectively.
 
 Template
 --------
