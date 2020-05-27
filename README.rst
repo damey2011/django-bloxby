@@ -96,8 +96,8 @@ Once the settings are configured you could run requests to access the default en
     # Could also do .update, .retrieve, .delete with this.
 
 
-The full parameters and data you can pass into the :code:`Users` methods and :code:`Packages` can be found `<here https://support.bloxby.com/knowledge-base/restful-api-end-point-api-users/>`_ and
-`<here https://support.bloxby.com/knowledge-base/restful-api-end-point-api-packages/>`_ respectively.
+The full parameters and data you can pass into the :code:`Users` methods and :code:`Packages` can be found `here <https://support.bloxby.com/knowledge-base/restful-api-end-point-api-users/>`_ and
+`here <https://support.bloxby.com/knowledge-base/restful-api-end-point-api-packages/>`_ respectively.
 
 Template
 --------
