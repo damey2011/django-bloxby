@@ -194,8 +194,7 @@ The :code:`UserBridge` object provides a couple of attributes and methods.
     # Do whatever you want with the login url maybe pass it to HTML
 
 
-- :code:`user_templates` *method*: This returns the templates the current user has. Assumed you have done the initial setup in :code:`settings.py`, and most importantly added the :code:`BLOXBY_BUILDER['custom_api_url']`
-setting.
+- :code:`user_templates` *method*: This returns the templates the current user has. Assumed you have done the initial setup in :code:`settings.py`, and most importantly added the :code:`BLOXBY_BUILDER['custom_api_url']` setting.
 
 .. code-block:: python
 
@@ -214,7 +213,7 @@ setting.
         print(template.sites_lastupdate_on)
 
 
-    # To get your data in JSON
+    # To get your data in JSON in an API view
 
     json_templates = UserTemplateSerializer(templates, many=True).data
 
