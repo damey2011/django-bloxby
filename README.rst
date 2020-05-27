@@ -171,7 +171,7 @@ repo, :code:`bloxby.models.UserBridge`.
 
 The :code:`UserBridge` object provides a couple of attributes and methods.
 
-- :code:`create` *classmethod*: This can be used to create a bloxby account for a user. You might Takes in parameters:
+- :code:`create` *classmethod*: This can be used to create a bloxby account for a user. Takes in parameters:
     - :code:`user`: User object of the user you want to create the bloxby account for.
     - :code:`package_id`: Bloxby Builder Package ID of the package you want to assign to user being created. Falls back to the :code:`settings.BLOXBY_BUILDER['default_package_id']` if no parameter is provided in this position.
     Returns the new :code:`UserBridge` instance.
