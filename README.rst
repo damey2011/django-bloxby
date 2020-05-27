@@ -134,7 +134,9 @@ Additionally, you need the credentials of an admin user from the builder site pa
 file.
 To setup this node server on a fresh server *(could as well run in the same server the bloxby instance runs in)*, you just need to clone this
 repo :code:`git clone https://github.com/damey2011/django-bloxby.git` and then navigate into the :code:`node_api` folder.
+
 Next, run :code:`./setup_node_api.sh`. This installs all the dependencies needed to run the node_js application including npm and the Node V8 runtime itself.
+
 Then, install the project dependencies by running :code:`npm install`. Once all these are done, you can start the server by running
 :code:`./start_node_api.sh`. All together, after configuring the :code:`index.js` with the correct database details. The lines of code below would setup and get the
 node server running on port 3000.
