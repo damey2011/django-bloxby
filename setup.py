@@ -65,10 +65,11 @@ setup(
         'idna==2.9',
         'pyftpdlib==1.5.6',
         'pytz==2020.1',
-        'requests==2.23.0',
+        'requests>=2.22.0',
         'soupsieve==1.9.5',
         'sqlparse==0.3.1',
-        'urllib3==1.25.9'
+        'urllib3==1.25.9',
+        'python-magic-bin==0.4.14'
     ],
     license="MIT",
     zip_safe=False,
