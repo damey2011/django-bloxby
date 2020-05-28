@@ -96,7 +96,7 @@ Once the settings are configured you could run requests to access the default en
     # Could also do .update, .retrieve, .delete with this.
 
 
-More information on integrating with the default APIs of :code:`Users` and :code:`Packages` can be found `here <https://support.bloxby.com/knowledge-base/restful-api-end-point-api-users/>`_ and
+More information on integrating with the default APIs of :code:`Users` and :code:`Packages` can be `found here <https://support.bloxby.com/knowledge-base/restful-api-end-point-api-users/>`_ and
 `here <https://support.bloxby.com/knowledge-base/restful-api-end-point-api-packages/>`_ respectively.
 
 
@@ -174,12 +174,15 @@ The :code:`UserBridge` object provides a couple of attributes and methods.
 - :code:`create` *classmethod*: This can be used to create a bloxby account for a user. Takes in parameters:
     - :code:`user`: User object of the user you want to create the bloxby account for.
     - :code:`package_id`: Bloxby Builder Package ID of the package you want to assign to user being created. Falls back to the :code:`settings.BLOXBY_BUILDER['default_package_id']` if no parameter is provided in this position.
+
     Returns the new :code:`UserBridge` instance.
+
 
 .. code-block:: python
 
     user = request.user
     UserBridge.create(user, 4)
+
 
 - :code:`dashboard_url` *property*: This returns the URL the current instance of UserBridge can use to auto login into the bloxby instance
 
@@ -217,6 +220,7 @@ The :code:`UserBridge` object provides a couple of attributes and methods.
 
     json_templates = UserTemplateSerializer(templates, many=True).data
 
+
 If you want it in json, you can do a simple serializer in django rest framework like this:
 
 .. code-block:: python
@@ -245,8 +249,8 @@ Note that the :code:`to_representation` method was overridden to format the date
 necessary to do so. If you are satisfied with the format of the default :code:`sites_lastupdate_on`, you might want to
 leave overriding to_representation out of your code.
 
-- :code:`save_site_from_remote` *method*: This method does not return anything, just downloads the site from the node server you setup earlier,
-takes parameters:
+- :code:`save_site_from_remote` *method*: This method does not return anything, just downloads the site from the node server you setup earlier, takes parameters:
+
     - :code:`site_id`: This is the unique ID of the site which you want to download from the user's builder account into your django application, how to render the site will be in the next section.
     - :code:`target`: This could be any string, something that differentiates objects using the sites. e.g. I could pass in 'event' as this parameter for me to know how to retrieve this particular template to render.
     - :code:`obj_id` *optional*: Should you want to attach this site you are downloading to another model instance in your application, you can pass in their unique key (preferably primary key) here. Note that the :code:`target` and :code:`obj_id` need to be unique together.
