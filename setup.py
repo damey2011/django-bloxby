@@ -60,7 +60,7 @@ setup(
         'beautifulsoup4==4.9.0',
         'pyftpdlib==1.5.6',
         'requests==2.22.0',
-        'python-magic==0.4.15'
+        'python-magic-bin==0.4.14'
     ],
     license="MIT",
     zip_safe=False,
