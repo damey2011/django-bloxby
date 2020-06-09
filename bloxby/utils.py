@@ -1,13 +1,17 @@
 import re
+import logging
 from zipfile import ZipFile
 
 import bs4
+import requests
+from django.conf import settings
 from django.core.files.base import ContentFile
 
 LINK_PATTERN = '[\.*?\/?\w+/\-_]{1,}\.[\w+]{2,}'
 
 CSS_LINK_PATTERN = 'url\([./]*?[\'"]?[\w+/.]*[?\w+]*[\'"]?\)'
 
+logger = logging.getLogger(__name__)
 
 def replace_links(page):
     from bloxby.models import TemplateAsset, Page
@@ -32,6 +36,7 @@ def replace_links(page):
     # Find all other asset embeddings in the HTML
     links = re.findall(LINK_PATTERN, html_content)
     for link in links:
+        initial_link = link
         search_path = link.replace('../', '')
         search_path = search_path.split('?')[0]
         search_path = search_path.split('#')[0]
@@ -46,7 +51,14 @@ def replace_links(page):
                 ta = TemplateAsset.objects.get(template=page.template, initial_path=search_path)
                 html_content = html_content.replace(link, ta.file.url)
             except TemplateAsset.DoesNotExist:
-                pass
+                initial_link = initial_link.lstrip("/")
+                new_link = f'{settings.BLOXBY_BUILDER["url"]}/{initial_link}'
+                try:
+                    if requests.head(new_link).status_code == 200:
+                        html_content = html_content.replace(initial_link, new_link)
+                except Exception as e:
+                    logger.info(f'Even link {new_link} is not valid.')
+                    pass
 
     name = page.html.name.split('/')[-1]
     page.html.delete()
