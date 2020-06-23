@@ -54,7 +54,8 @@ def replace_links(page):
                 initial_link = initial_link.lstrip("/")
                 new_link = f'{settings.BLOXBY_BUILDER["url"]}/{initial_link}'
                 try:
-                    if requests.head(new_link).status_code == 200:
+                    resp = requests.head(new_link)
+                    if resp.status_code == 200 and bool(resp.content):
                         html_content = html_content.replace(initial_link, new_link)
                 except Exception as e:
                     logger.info(f'Even link {new_link} is not valid.')
