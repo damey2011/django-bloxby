@@ -51,7 +51,9 @@ def replace_links(page):
                 ta = TemplateAsset.objects.get(template=page.template, initial_path=search_path)
                 html_content = html_content.replace(link, ta.file.url)
             except TemplateAsset.DoesNotExist:
-                initial_link = initial_link.lstrip("/")
+                if initial_link.startswith('/'):
+                    logger.info(f'Initial link {initial_link} is not found.')
+                    continue
                 new_link = f'{settings.BLOXBY_BUILDER["url"]}/{initial_link}'
                 try:
                     resp = requests.head(new_link)
