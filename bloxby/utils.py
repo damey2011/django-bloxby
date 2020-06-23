@@ -7,9 +7,9 @@ import requests
 from django.conf import settings
 from django.core.files.base import ContentFile
 
-LINK_PATTERN = '(http[s]?://)?[\.*?\/?\w+/\-_]{1,}\.[\w+]{2,}'
+LINK_PATTERN = '(?:https?://)?[\.*?\/?\w+/\-_]{1,}\.[\w+]{2,}'
 
-CSS_LINK_PATTERN = 'url\((http[s]?://)?[./]*?[\'"]?[\w+/.]*[?\w+]*[\'"]?\)'
+CSS_LINK_PATTERN = 'url\((?:https?://)?[./]*?[\'"]?[\w+/.]*[?\w+]*[\'"]?\)'
 
 logger = logging.getLogger(__name__)
 
