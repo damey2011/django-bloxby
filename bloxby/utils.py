@@ -7,11 +7,12 @@ import requests
 from django.conf import settings
 from django.core.files.base import ContentFile
 
-LINK_PATTERN = '[\.*?\/?\w+/\-_]{1,}\.[\w+]{2,}'
+LINK_PATTERN = '(http[s]?://)?[\.*?\/?\w+/\-_]{1,}\.[\w+]{2,}'
 
-CSS_LINK_PATTERN = 'url\([./]*?[\'"]?[\w+/.]*[?\w+]*[\'"]?\)'
+CSS_LINK_PATTERN = 'url\((http[s]?://)?[./]*?[\'"]?[\w+/.]*[?\w+]*[\'"]?\)'
 
 logger = logging.getLogger(__name__)
+
 
 def replace_links(page):
     from bloxby.models import TemplateAsset, Page
@@ -37,6 +38,8 @@ def replace_links(page):
     links = re.findall(LINK_PATTERN, html_content)
     for link in links:
         initial_link = link
+        if '://' in link:
+            continue
         search_path = link.replace('../', '')
         search_path = search_path.split('?')[0]
         search_path = search_path.split('#')[0]
