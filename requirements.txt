@@ -3,7 +3,7 @@ beautifulsoup4==4.9.0
 certifi==2020.4.5.1
 chardet==3.0.4
 Django==3.1a1
-django-bloxby==0.0.43
+django-bloxby==0.0.53
 idna==2.8
 pyftpdlib==1.5.6
 python-magic==0.4.15
