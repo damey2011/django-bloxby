@@ -56,8 +56,8 @@ setup(
     ],
     include_package_data=True,
     install_requires=[
-        'Django>=2.2',
-        'beautifulsoup4==4.9.0',
+        'Django>=2.0',
+        'beautifulsoup4==4.7.1',
         'pyftpdlib==1.5.6',
         'requests==2.22.0',
         'python-magic==0.4.15'
